@@ -4,13 +4,13 @@ LogAnalyzer Pro est un outil en ligne de commande (CLI) conçu pour automatiser 
 
 Objectifs principaux :
 
-    Extraire des statistiques pertinentes des fichiers .log.
+- Extraire des statistiques pertinentes des fichiers .log.
 
-    Centraliser les métadonnées système (OS, Utilisateur) et les erreurs critiques.
+- Centraliser les métadonnées système (OS, Utilisateur) et les erreurs critiques.
 
-    Optimiser l'espace disque par la compression .tar.gz.
+- Optimiser l'espace disque par la compression .tar.gz.
 
-    Automatiser la rétention des données pour éviter la saturation du serveur.
+- Automatiser la rétention des données pour éviter la saturation du serveur.
 
 2. Prérequis et installation
 
@@ -20,12 +20,9 @@ Objectifs principaux :
 
 Installation :
 
-    Clonez le dossier du projet.
+- Clonez le dossier du projet.
 
-    Donnez les droits d'exécution au script principal :
-    Bash
-
-    chmod +x main.py
+- Donnez les droits d'exécution au script principal : chmod +x main.py
 
 3. Utilisation
 
@@ -37,31 +34,27 @@ python main.py --source /chemin/vers/logs [OPTIONS]
 
 Exemples de commandes :
 
-    Analyse complète avec rétention par défaut (30 jours) : 
-    python main.py --source ./logs_test --niveau ALL
-
-
-    Filtrage uniquement sur les erreurs avec une rétention de 7 jours :
-    python main.py --source ./logs_test --niveau ERROR --retention 7
+- Analyse complète avec rétention par défaut (30 jours) : python main.py --source ./logs_test --niveau ALL
+  
+- Filtrage uniquement sur les erreurs avec une rétention de 7 jours : python main.py --source ./logs_test --niveau ERROR --retention 7
 
 Arguments disponibles :
 
-Argument	Description	Obligatoire	Défaut
---source	Chemin vers le dossier contenant les fichiers .log	obligatoire
---niveau	Niveau de filtrage (INFO, WARN, ERROR, ALL)	Non obligatoire ALL par defaut
---retention	Nombre de jours avant suppression des anciens rapports	Non obligatoire	30 par defaut
+--source: Chemin vers le dossier contenant les fichiers .log	obligatoire
+--niveau: 	Niveau de filtrage (INFO, WARN, ERROR, ALL)	Non obligatoire ALL par defaut
+--retention: Nombre de jours avant suppression des anciens rapports	Non obligatoire	30 par defaut
 
 4. Description des modules
 
 Le projet est découpé en 4 modules spécialisés pour garantir une maintenance facile :
 
-    analyser.py (Module 1) : Responsable du scan des fichiers via glob. Il parse les lignes de log, filtre selon le niveau choisi et calcule les statistiques (Top 5 erreurs, comptage).
+- analyser.py (Module 1) : Responsable du scan des fichiers via glob. Il parse les lignes de log, filtre selon le niveau choisi et calcule les statistiques (Top 5 erreurs, comptage).
 
-    rapport.py (Module 2) : Transforme les données analysées en un fichier JSON horodaté. Il récupère les métadonnées système (platform, os.environ) et assure la structure stricte du rapport.
+- rapport.py (Module 2) : Transforme les données analysées en un fichier JSON horodaté. Il récupère les métadonnées système (platform, os.environ) et assure la structure stricte du rapport.
 
-    archiver.py (Module 3) : Gère les opérations système lourdes. Il vérifie l'espace disque disponible (subprocess), compresse les logs traités (tarfile) et nettoie les fichiers JSON obsolètes.
+- archiver.py (Module 3) : Gère les opérations système lourdes. Il vérifie l'espace disque disponible (subprocess), compresse les logs traités (tarfile) et nettoie les fichiers JSON obsolètes.
 
-    main.py (Module 4) : Point d'entrée du programme. Il gère les arguments CLI (argparse), orchestre l'exécution des modules et intercepte les erreurs pour garantir la robustesse de l'outil.
+- main.py (Module 4) : Point d'entrée du programme. Il gère les arguments CLI (argparse), orchestre l'exécution des modules et intercepte les erreurs pour garantir la robustesse de l'outil.
 
 5. Planification Hebdomadaire (Cron)
 
